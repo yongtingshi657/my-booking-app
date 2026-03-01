@@ -1,0 +1,23 @@
+{
+  "name": "lion-scheduling-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Yongting Shi",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
