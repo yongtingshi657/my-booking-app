@@ -13,8 +13,8 @@ const authenticateUser = require('./middleware/authentication')
 app.use(express.json());
 
 // routes
-app.use('/auth', authRouter )
-app.use('/clients', authenticateUser, clientRouter)
+app.use('/api/auth', authRouter )
+app.use('/api/clients', authenticateUser, clientRouter)
 
 // error handler
 app.use(errorHandlerMiddleware)

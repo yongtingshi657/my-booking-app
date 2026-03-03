@@ -1,0 +1,61 @@
+.errorText {
+  background-color: #fff2f2;
+  color: #d8000c;
+  padding: 0.85rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border: 1px solid #ffbaba;
+}
+
+.headerSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 0 1rem;
+}
+
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(74, 144, 226, 0.2);
+}
+
+.addBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(74, 144, 226, 0.3);
+}
+
+.addBtn span {
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: transparent;
+  color: white;
+}
+.clientContainer{
+     padding: 0 1rem;
+     display: flex;
+     justify-content: center;
+     flex-direction: column;
+     width: 100%;
+}
+
+.tableContainer {
+  background-color: #f0efdc;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin: 1rem;
+}
+
+

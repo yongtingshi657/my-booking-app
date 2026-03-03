@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0efdc;
+    min-height: 90vh;       
+    width: 100%;
+}
+
+.loginContainer, .registerContainer {
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+h2 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.formContainer {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.formContainer  label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom:0.5rem;
+}
+
+.formContainer  input {
+    padding: 1rem 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formContainer  input:focus {
+  outline: none;
+  border-color: #51654f;
+  box-shadow: 0 0 0 3px rgba(81, 101, 79, 0.1);
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 1rem;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+.submitBtn:hover {
+    background-color: #0d5c0d;
+}
+
+.errorText {
+    background-color: #fff2f2;
+    color: #d8000c;
+    padding: 0.85rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border: 1px solid #ffbaba;
+}
+
+
+@media (max-width: 480px) {
+    .loginContainer, .registerContainer {
+        width: 95%;      
+        padding: 2rem;  
+        border-radius: 0; 
+    }
+
+    .container {
+        align-items: flex-start; /* Push the box to the top so the keyboard doesn't hide it */
+        padding-top: 50px;
+    }
+}
