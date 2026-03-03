@@ -1,0 +1,157 @@
+.clientTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.clientTable th {
+  background-color: #f0efdc;
+  /* color: #64748b; */
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem;
+  border-bottom: 2px solid #edf2f7;
+}
+
+.clientTable td {
+  padding: 1rem;
+  border-bottom: 2px solid #edf2f7;
+  /* color: #334155; */
+}
+
+.clientName {
+  font-weight: 600;
+  color: #1e293b !important;
+}
+
+/* table Button */
+.btnContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.editBtn {
+  background-color: rgb(199, 137, 36);
+}
+
+.deleteBtn {
+  background-color: #e74c3c;
+}
+
+.errorText {
+  background-color: #fff2f2;
+  color: #d8000c;
+  padding: 0.85rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border: 1px solid #ffbaba;
+}
+
+/* modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modalContainer {
+  background-color: #fdfaf1; 
+  width: 100%;
+  max-width: 500px;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  position: relative;
+  animation: modalPop 0.3s ease-out;
+}
+
+.modalContainer  h2{
+  margin-bottom: 2rem;
+}
+
+.formContainer {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.formContainer label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom:0.5rem;
+}
+
+.formContainer input {
+    padding: 1rem 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formContainer input:focus {
+  outline: none;
+  border-color: #51654f;
+  box-shadow: 0 0 0 3px rgba(81, 101, 79, 0.1);
+}
+
+/* Modal Button  */
+.btnGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btnGroup button {
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.cancelBtn {
+  background: none;
+  border: none;
+  color: #555;
+  font-weight: 600;
+}
+
+.searchBox {
+  max-width: 400px;
+  margin-left: 1rem;
+  display: flex;
+}
+
+.searchBox input {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem; 
+  font-size: 1.2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem; 
+  padding-left: 1.5rem;
+  color: black;
+}
+
+.searchBox input:focus {
+  outline: none;
+  border-color: #51654f;
+  box-shadow: 0 0 0 3px rgba(81, 101, 79, 0.1);
+}
+
+.searchBox button {
+  background: none;
+  border: none;
+  color: black;
+  font-size: larger;
+  box-shadow: none;
+}
