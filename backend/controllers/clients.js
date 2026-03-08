@@ -30,7 +30,7 @@ const getClient = async (req, res) => {
     throw new NotFoundError(`No Client with id ${clientId} `);
   }
 
-  res.status(StatusCodes.CREATED).json({ client });
+  res.status(StatusCodes.OK).json({ client });
 };
 
 const updateClient = async (req, res) => {
@@ -75,10 +75,33 @@ const deleteClient = async (req, res) => {
   res.status(StatusCodes.OK).json({ message: "Client deleted" });
 };
 
+const searchClients = async (req, res) => {
+  const { searchQuery } = req.query;
+  const userId = req.user.userId;
+
+  if (!searchQuery) {
+    return res
+      .status(StatusCodes.OK)
+      .json({ message: "Client does not exist", client: []});
+  }
+
+  const clients = await Client.find({
+    createdBy: userId,
+    $or: [
+      { firstname: { $regex: searchQuery, $options: "i" } },
+      { lastname: { $regex: searchQuery, $options: "i" } },
+      { phone: { $regex: searchQuery, $options: "i" } },
+    ],
+  });
+
+  res.status(StatusCodes.OK).json({ clients });
+};
+
 module.exports = {
   getAllClients,
   getClient,
   createClient,
   updateClient,
   deleteClient,
+  searchClients
 };

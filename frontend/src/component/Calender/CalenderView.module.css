@@ -1,0 +1,32 @@
+.calenderContainer {
+    margin: 20px 80px;
+    height: 80vh;
+    background-color: none;
+}
+
+.calenderContainer :global(.rbc-time-content) {
+    background-color: #faf8f1; 
+    border-top: 1px solid #555;
+}
+
+/*  hour slot*/
+.calenderContainer :global(.rbc-timeslot-group) {
+    border-bottom: 1px dash #7d6e52 !important; 
+    min-height: 60px;
+}
+
+.calenderContainer :global(.rbc-time-slot) {
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* day slot */
+.calenderContainer :global(.rbc-day-slot) {
+    border-left: 1px dash #b0b0b0 !important;
+}
+
+/* This targets the column representing the current day */
+.calenderContainer :global(.rbc-today) {
+  background-color: #fef9e7 !important; 
+}
+
+

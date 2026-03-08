@@ -47,6 +47,7 @@ nav {
   text-decoration: underline;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+  border-radius: 5px;
 }
 
 .logoutBtn {

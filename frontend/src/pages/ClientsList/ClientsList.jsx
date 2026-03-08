@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "./ClientsList.module.css";
-import ClientTable from "../component/Clients/ClientTable";
-import ClientModal from "../component/Clients/ClientModal";
-import { useNavigate } from "react-router-dom";
-import ClientSearch from "../component/Clients/ClientSearch";
+import ClientTable from "../../component/Clients/ClientTable";
+import ClientModal from "../../component/Clients/ClientModal";
+import ClientSearch from "../../component/Clients/ClientSearch";
 
 export default function ClientsList() {
   const [clients, setClients] = useState([]);

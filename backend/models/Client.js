@@ -24,7 +24,7 @@ const ClientSchema = new mongoose.Schema(
     phone: {
       type: String,
       required: [true, "Please provide phone number"],
-      unique: true,
+      // unique: true,
       minLength: 8,
       match: [
         /^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/,
