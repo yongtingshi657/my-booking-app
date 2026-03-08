@@ -4,13 +4,14 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Home from "./pages/Home";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Navbar from "./component/Navbar";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import ClientsList from "./pages/ClientsList";
+import ClientsList from "./pages/ClientsList/ClientsList";
+import Appointments from "./pages/Appointments";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -42,9 +43,11 @@ function App() {
 
   return (
     <>
+   
       <Router>
         <Navbar user={user} setUser={setUser} />
-        <Routes>
+        <Routes> 
+          <Route path="/bookings" element={<Appointments />} />
           <Route
             path="/"
             element={
