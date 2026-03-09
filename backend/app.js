@@ -1,27 +1,53 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
+const helmet = require("helmet");
+const cors = require("cors");
+const { xss } = require("express-xss-sanitizer");
+const rateLimiter = require("express-rate-limit");
+// const path = require("path");
 // import
 const connectDB = require("./db/connect");
-const authRouter = require('./routes/auth'); 
-const clientRouter = require('./routes/client'); 
-const apptRouter = require('./routes/appointment'); 
+const authRouter = require("./routes/auth");
+const clientRouter = require("./routes/client");
+const apptsRouter = require("./routes/appointment");
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
-const authenticateUser = require('./middleware/authentication')
+const authenticateUser = require("./middleware/authentication");
 
-// middleware 
+// middleware
+app.use(
+  cors({
+   origin: [process.env.CLIENT_URL, "http://localhost:5173"],
+  }),
+);
+app.set("trust proxy", 1);
+app.use(
+  rateLimiter({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+  }),
+);
 app.use(express.json());
+app.use(helmet());
+
+app.use(xss());
 
 // routes
-app.use('/api/auth', authRouter )
-app.use('/api/clients', authenticateUser, clientRouter)
-app.use('/api/appointments', authenticateUser, apptRouter)
+app.use("/api/auth", authRouter);
+app.use("/api/clients", authenticateUser, clientRouter);
+app.use("/api/appointments", authenticateUser, apptsRouter);
 
 // error handler
-app.use(errorHandlerMiddleware)
-app.use(notFound)
+app.use(errorHandlerMiddleware);
+app.use(notFound);
 
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../frontend/dist")));
+//   app.get("/*index", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
+//   });
+// }
 
 const PORT = process.env.PORT || 3500;
 const start = async () => {

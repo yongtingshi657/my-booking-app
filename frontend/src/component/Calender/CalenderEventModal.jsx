@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CalenderEventModal.module.css";
 import moment from "moment";
-import axios from "axios";
+import customFetch from '../../utils/axios';
 import ClientSearch from "./ClientSearch";
 import ClientModal from "../Clients/ClientModal";
 import { FaRegUser } from "react-icons/fa";
@@ -29,7 +29,6 @@ export default function CalenderEventModal({
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setError("");
     if (event) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData({
         clientName: event.client,
         start: moment(event.start).format("YYYY-MM-DDTHH:mm"),
@@ -79,14 +78,14 @@ export default function CalenderEventModal({
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
       if (event) {
-        const { data } = await axios.patch(
+        const { data } = await customFetch.patch(
           `/api/appointments/${event._id}`,
           payload,
           config,
         );
         onSave(data.appointment);
       } else {
-        const { data } = await axios.post("/api/appointments", payload, config);
+        const { data } = await customFetch.post("/api/appointments", payload, config);
         onSave(data.appointment);
       }
 
@@ -133,6 +132,7 @@ export default function CalenderEventModal({
         {error && <p className={styles.errorText}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className={styles.formContainer}>
+            {/* <p>Type a name and select from the list, or create a new profile.</p> */}
             <label>Client</label>
             {event ? (
               <div className={styles.clientInfo}>

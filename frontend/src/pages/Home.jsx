@@ -1,6 +1,6 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import customFetch from '../utils/axios';
 import styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
@@ -25,7 +25,7 @@ export default function Home() {
       const start = moment().startOf("day").toISOString();
       const end = moment().endOf("day").toISOString();
       try {
-        const { data } = await axios.get("/api/appointments", {
+        const { data } = await customFetch.get("/api/appointments", {
           params: { startDate: start, endDate: end },
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -38,7 +38,10 @@ export default function Home() {
         setTodayAppts(sortedAppts);
       } catch (error) {
         console.log(error);
-        setError("Failed to fetch Appointments");
+        const message =
+        error.response?.data?.message ||
+        "Failed to fetch Appointments. Please try again";
+      setError(message);
       }
     };
 

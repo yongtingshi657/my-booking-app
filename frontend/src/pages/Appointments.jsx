@@ -3,7 +3,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import CalenderEventModal from "../component/Calender/CalenderEventModal";
 import CalenderView from "../component/Calender/CalenderView";
-import axios from "axios";
+import customFetch from '../utils/axios';
 
 function Appointments() {
   const [events, setEvents] = useState([]);
@@ -16,6 +16,10 @@ function Appointments() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setError('')
+
+
     if (!token) {
       return;
     }
@@ -23,7 +27,7 @@ function Appointments() {
       const start = moment().startOf("month").toISOString();
       const end = moment().endOf("month").toISOString();
       try {
-        const { data } = await axios.get("/api/appointments", {
+        const { data } = await customFetch.get("/api/appointments", {
           params: { startDate: start, endDate: end },
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -39,7 +43,9 @@ function Appointments() {
         setEvents(formatedAppts);
       } catch (error) {
         console.log(error);
-        setError("Failed to fetch Appointments");
+         const message =
+            error.response?.data?.message || "Failed to fetch Appointments";
+          setError(message);
       }
     };
 
@@ -96,7 +102,7 @@ function Appointments() {
         setError("No authentication token found. Please Log in");
         return;
       }
-      await axios.delete(`/api/appointments/${id}`, {
+      await customFetch.delete(`/api/appointments/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -129,7 +135,7 @@ function Appointments() {
         return;
       }
 
-      const { data } = await axios.patch(
+      const { data } = await customFetch.patch(
         `/api/appointments/${event._id}`,
         updatedEvent,
         { headers: { Authorization: `Bearer ${token}` } },

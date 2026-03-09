@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-import axios from "axios";
+import customFetch from '../../utils/axios';
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./ClientDetail.module.css";
@@ -33,8 +33,8 @@ export default function ClientDetail() {
       try {
         setIsLoading(true);
         const [clientRes, apptHistRes] = await Promise.all([
-          axios.get(`/api/clients/${id}`, config),
-          axios.get(`/api/appointments/history/${id}`, config),
+          customFetch.get(`/api/clients/${id}`, config),
+          customFetch.get(`/api/appointments/history/${id}`, config),
         ]);
         console.log("data", clientRes, apptHistRes);
         setClientInfo(clientRes.data.client);
