@@ -3,7 +3,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import CalenderEventModal from "../component/Calender/CalenderEventModal";
 import CalenderView from "../component/Calender/CalenderView";
-import customFetch from '../utils/axios';
+import customFetch from "../utils/axios";
 
 function Appointments() {
   const [events, setEvents] = useState([]);
@@ -17,8 +17,7 @@ function Appointments() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setError('')
-
+    setError("");
 
     if (!token) {
       return;
@@ -43,9 +42,9 @@ function Appointments() {
         setEvents(formatedAppts);
       } catch (error) {
         console.log(error);
-         const message =
-            error.response?.data?.message || "Failed to fetch Appointments";
-          setError(message);
+        const message =
+          error.response?.data?.message || "Failed to fetch Appointments";
+        setError(message);
       }
     };
 
@@ -70,8 +69,8 @@ function Appointments() {
     console.log("e", eventData);
     const formattedEvent = {
       ...eventData,
-      start: new Date(eventData.start),
-      end: new Date(eventData.end),
+      start: moment(eventData.start).local().toDate(),
+      end: moment(eventData.end).local().toDate(),
       client: eventData.clientName,
     };
 
