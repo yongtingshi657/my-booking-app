@@ -34,8 +34,8 @@ function Appointments() {
 
         const formatedAppts = data.appointments.map((appt) => ({
           ...appt,
-          start: new Date(appt.start),
-          end: new Date(appt.end),
+          start: moment(appt.start).local().toDate(),
+          end: moment(appt.end).local().toDate(),
           client: appt.clientName,
         }));
         console.log("data", formatedAppts);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CalenderEventModal.module.css";
 import moment from "moment";
-import customFetch from '../../utils/axios';
+import customFetch from "../../utils/axios";
 import ClientSearch from "./ClientSearch";
 import ClientModal from "../Clients/ClientModal";
 import { FaRegUser } from "react-icons/fa";
@@ -62,10 +62,10 @@ export default function CalenderEventModal({
       return;
     }
 
-    if (new Date(formData.start) >= new Date(formData.end)) {
-      setError("End time must be after the start time.");
-      return;
-    }
+  if (moment(formData.start).isSameOrAfter(moment(formData.end))) {
+    setError("End time must be after the start time.");
+    return;
+  }
 
     try {
       const token = localStorage.getItem("token");
@@ -74,7 +74,11 @@ export default function CalenderEventModal({
         return;
       }
 
-      const payload = formData;
+      const payload = {
+        ...formData,
+        start: moment(formData.start).toISOString(),
+        end: moment(formData.end).toISOString(),
+      };
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
       if (event) {
@@ -85,7 +89,11 @@ export default function CalenderEventModal({
         );
         onSave(data.appointment);
       } else {
-        const { data } = await customFetch.post("/api/appointments", payload, config);
+        const { data } = await customFetch.post(
+          "/api/appointments",
+          payload,
+          config,
+        );
         onSave(data.appointment);
       }
 
@@ -114,7 +122,7 @@ export default function CalenderEventModal({
     setIsClientModalOpen(false);
   };
 
-  if(!isOpen) return null
+  if (!isOpen) return null;
 
   return (
     <div className={styles.modalOverlay}>
@@ -136,9 +144,14 @@ export default function CalenderEventModal({
             <label>Client</label>
             {event ? (
               <div className={styles.clientInfo}>
-                <p>{event.clientName}</p> 
-                <div className={styles.userBtn} onClick={() => navigate(`/clients/${event.clientId}`)}><FaRegUser /></div>
+                <p>{event.clientName}</p>
+                <div
+                  className={styles.userBtn}
+                  onClick={() => navigate(`/clients/${event.clientId}`)}
+                >
+                  <FaRegUser />
                 </div>
+              </div>
             ) : (
               <>
                 <ClientSearch formData={formData} setFormData={setFormData} />
