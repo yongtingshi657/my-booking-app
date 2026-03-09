@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Clients.module.css";
-import axios from "axios";
+import customFetch from '../../utils/axios';
 
 export default function ClientModal({ isOpen, onClose, client, onSave }) {
   const [formData, setFormData] = useState({
@@ -29,14 +29,14 @@ export default function ClientModal({ isOpen, onClose, client, onSave }) {
 
       // edit
       if (client) {
-        const { data } = await axios.patch(
+        const { data } = await customFetch.patch(
           `/api/clients/${client._id}`,
           payload,
           config,
         );
         onSave(data.client);
       } else {
-        const { data } = await axios.post("/api/clients", payload, config);
+        const { data } = await customFetch.post("/api/clients", payload, config);
         onSave(data.client);
       }
 

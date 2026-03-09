@@ -5,7 +5,6 @@ import {
   Navigate,
 } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Home from "./pages/Home";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
@@ -15,6 +14,7 @@ import Appointments from "./pages/Appointments";
 import Layout from "./component/Layout/Layout";
 import ClientDetail from "./component/Clients/ClientDetail";
 import NotFound from "./pages/NotFound";
+import customFetch from "./utils/axios";
 function App() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
@@ -26,7 +26,7 @@ function App() {
       const token = localStorage.getItem("token");
       if (token) {
         try {
-          const res = await axios.get("/api/auth/me", {
+          const res = await customFetch.get("/api/auth/me", {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUser(res.data.user);

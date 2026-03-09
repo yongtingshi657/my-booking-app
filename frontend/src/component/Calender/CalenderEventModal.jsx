@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CalenderEventModal.module.css";
 import moment from "moment";
-import axios from "axios";
+import customFetch from '../../utils/axios';
 import ClientSearch from "./ClientSearch";
 import ClientModal from "../Clients/ClientModal";
 import { FaRegUser } from "react-icons/fa";
@@ -78,14 +78,14 @@ export default function CalenderEventModal({
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
       if (event) {
-        const { data } = await axios.patch(
+        const { data } = await customFetch.patch(
           `/api/appointments/${event._id}`,
           payload,
           config,
         );
         onSave(data.appointment);
       } else {
-        const { data } = await axios.post("/api/appointments", payload, config);
+        const { data } = await customFetch.post("/api/appointments", payload, config);
         onSave(data.appointment);
       }
 

@@ -1,4 +1,4 @@
-import axios from "axios";
+import customFetch from '../../utils/axios'; ;
 import { useEffect, useState } from "react";
 import styles from "./ClientsList.module.css";
 import ClientTable from "../../component/Clients/ClientTable";
@@ -23,7 +23,7 @@ export default function ClientsList() {
     }
     const fetchClients = async () => {
       try {
-        const { data } = await axios.get("/api/clients", {
+        const { data } = await customFetch.get("/api/clients", {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log("data", data);
@@ -70,7 +70,7 @@ export default function ClientsList() {
         setError("No authentication token found. Please Log in");
         return;
       }
-      await axios.delete(`/api/clients/${id}`, {
+      await customFetch.delete(`/api/clients/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setClients(clients.filter((client) => client._id !== id));

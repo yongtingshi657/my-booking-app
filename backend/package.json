@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "nodemon app.js"
   },
+  "type": "commonjs",
   "keywords": [],
   "author": "Yongting Shi",
   "license": "ISC",

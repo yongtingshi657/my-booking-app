@@ -1,4 +1,4 @@
-import axios from "axios";
+import customFetch from '../../utils/axios';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from './Auth.module.css'
@@ -18,7 +18,7 @@ export default function Login({setUser}) {
   const handleSubmit = async(e) => {
     e.preventDefault()
     try {
-        const res = await axios.post('/api/auth/login', formData)
+        const res = await customFetch.post('/api/auth/login', formData)
         localStorage.setItem('token', res.data.token)
         setUser(res.data.user)
         navigate('/')

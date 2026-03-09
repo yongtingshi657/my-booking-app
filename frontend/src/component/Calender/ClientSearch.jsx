@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./ClientSearch.module.css";
-import axios from "axios";
+import customFetch from '../../utils/axios';
 
 export default function ClientSearch({ formData, setFormData }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,7 +23,7 @@ export default function ClientSearch({ formData, setFormData }) {
     setIsSearching(true);
 
     try {
-      const { data } = await axios.get(`/api/clients/search`, {
+      const { data } = await customFetch.get(`/api/clients/search`, {
         params: { searchQuery: value },
         headers: { Authorization: `Bearer ${token}` },
       });
