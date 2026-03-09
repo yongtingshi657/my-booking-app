@@ -27,6 +27,17 @@ button:hover {
   box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
 }
 
+.errorText {
+  background-color: #fff2f2;
+  color: #d8000c;
+  padding: 0.85rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border: 1px solid #ffbaba;
+}
+
 /* button:hover {
     background-color: #0d5c0d;
 } */
@@ -35,9 +46,17 @@ button:hover {
 background : f0efdc
 */
 
+/* 
+ background-color: #b48a78; */
+
 /* Cancel/logout Btn */
 /* color: #555; */
 
 /* logo color
 color: rgb(122, 64, 64);
 */
+
+/*  add color 
+ color: #b48a78; 
+ 
+ */

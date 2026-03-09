@@ -13,7 +13,7 @@ export default function CalenderView({
   events,
   handleSelectSlot,
   handleSelectEvent,
-  handleEventDrop,
+  handleEventDrop
 }) {
   const DnDCalendar = withDragAndDrop(Calendar);
 
