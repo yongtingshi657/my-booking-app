@@ -1,7 +1,6 @@
 import { useState } from "react";
-import styles from "./CalenderEventModal.module.css";
+import styles from "./ClientSearch.module.css";
 import axios from "axios";
-import ClientModal from "../Clients/ClientModal";
 
 export default function ClientSearch({ formData, setFormData }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -68,7 +67,7 @@ export default function ClientSearch({ formData, setFormData }) {
           className={styles.changeBtn}
           onClick={handleCancelClient}
         >
-          Change
+          X
         </button>
       </div>
     );
@@ -105,7 +104,7 @@ export default function ClientSearch({ formData, setFormData }) {
 
       {searchTerm.length >= 2 && !isSearching && searchResults.length === 0 && (
         <div className={styles.noResults}>
-          No client found.
+          No client found
         </div>
       )}
     </>

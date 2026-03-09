@@ -12,12 +12,15 @@ import Register from "./pages/Auth/Register";
 import Navbar from "./component/Navbar";
 import ClientsList from "./pages/ClientsList/ClientsList";
 import Appointments from "./pages/Appointments";
-
+import Layout from "./component/Layout/Layout";
+import ClientDetail from "./component/Clients/ClientDetail";
 function App() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setError('')
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
       if (token) {
@@ -41,44 +44,41 @@ function App() {
     return <div>Loading...</div>;
   }
 
+  if(error){
+    return <p>{error}</p>
+  }
+
   return (
     <>
-   
       <Router>
-        <Navbar user={user} setUser={setUser} />
-        <Routes> 
-          <Route path="/bookings" element={<Appointments />} />
-          <Route
-            path="/"
-            element={
-              user ? (
-                <Home user={user} setUser={setUser} />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
+        <div
+          style={{ display: "flex", flexDirection: "column", height: "100vh" }}
+        >
+          <Navbar user={user} setUser={setUser} />
+          <Routes>
+            {/* public  */}
             <Route
-            path="/clients"
-            element={
-              user ? (
-                <ClientsList user={user} setUser={setUser} />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              user ? <Navigate to="/" /> : <Register setUser={setUser} />
-            }
-          />
-          <Route
-            path="/login"
-            element={user ? <Navigate to="/" /> : <Login setUser={setUser} />}
-          />
-        </Routes>
+              path="/register"
+              element={
+                user ? <Navigate to="/" /> : <Register setUser={setUser} />
+              }
+            />
+            <Route
+              path="/login"
+              element={user ? <Navigate to="/" /> : <Login setUser={setUser} />}
+            />
+
+            {/* private */}
+            <Route element={<Layout user={user} setUser={setUser} />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/clients" element={<ClientsList />} />
+              <Route path="/clients/:id" element={<ClientDetail />} />
+              <Route path="/bookings" element={<Appointments />} />
+
+              {/* not found */}
+            </Route>
+          </Routes>
+        </div>
       </Router>
     </>
   );

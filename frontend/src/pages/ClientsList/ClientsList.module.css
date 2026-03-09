@@ -29,6 +29,8 @@
   font-weight: 600;
   transition: all 0.2s ease;
   box-shadow: 0 4px 6px rgba(74, 144, 226, 0.2);
+  background-color: #b48a78;
+  /* color: #8e6b5d; */
 }
 
 .addBtn:hover {
@@ -39,8 +41,8 @@
 .addBtn span {
   font-size: 1rem;
   line-height: 1.5;
-  background-color: transparent;
   color: white;
+   /* color: #8e6b5d; */
 }
 .clientContainer{
      padding: 0 1rem;

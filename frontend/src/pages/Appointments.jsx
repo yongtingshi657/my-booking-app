@@ -15,7 +15,6 @@ function Appointments() {
 
   const token = localStorage.getItem("token");
 
-  //   fetch appts
   useEffect(() => {
     if (!token) {
       return;
@@ -74,7 +73,7 @@ function Appointments() {
       const isExisting = prev.find((ev) => ev._id === eventData._id);
 
       if (isExisting) {
-        return events.map((event) =>
+        return prev.map((event) =>
           event._id === eventData._id ? formattedEvent : event,
         );
       } else {
@@ -89,6 +88,9 @@ function Appointments() {
 
   //   delete event
   const handleDeleteEvent = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this appointment?")) {
+      return;
+    }
     try {
       if (!token) {
         setError("No authentication token found. Please Log in");
@@ -98,12 +100,13 @@ function Appointments() {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      if (window.confirm("Are you sure you want to delete this appointment?")) {
-        setEvents((prev) => prev.filter((ev) => ev._id !== id));
-      }
+      setEvents((prev) => prev.filter((ev) => ev._id !== id));
     } catch (error) {
       console.log(error);
-      setError("Failed to Delete Appointment");
+      const message =
+        error.response?.data?.message ||
+        "Failed to Delete Appointment. Please try again";
+      setError(message);
     }
 
     setIsOpenEvent(false);
@@ -140,13 +143,16 @@ function Appointments() {
       setError("");
     } catch (error) {
       console.log(error);
-      setError("something went wrong");
+      const message =
+        error.response?.data?.message ||
+        "Something Went Wrong. Please try again";
+      setError(message);
     }
   };
 
   return (
     <>
-      {error && <p>{error}</p>}
+      {error && <p className="errorText">{error}</p>}
       <CalenderView
         events={events}
         handleSelectEvent={handleSelectEvent}

@@ -1,0 +1,100 @@
+.errorText {
+  background-color: #fff2f2;
+  color: #d8000c;
+  padding: 0.85rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border: 1px solid #ffbaba;
+}
+
+.mainContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 80%;
+  gap: 40px;
+  padding: 20px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 200px;
+  align-items: flex-end;
+}
+
+.primarylinks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  /* color: #b48a78; */
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.primarylinks:hover {
+  color: #8e6b5d;
+  text-decoration: underline;
+}
+
+.homeContainer {
+  max-width: 800px;
+  margin: 0;
+  flex: 1;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; */
+}
+
+.dateHeader {
+  text-align: left;
+  color: #2d334a;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.apptsList {
+  list-style: none;
+  padding: 0;
+}
+
+.apptLine {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-right: 5px solid #658961;
+  cursor: pointer;
+}
+
+.time {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #555;
+  width: 100px;
+}
+
+.clientName {
+  font-size: 1.1rem;
+  color: #2d334a;
+}
+
+.noAppt {
+  color: #888;
+}

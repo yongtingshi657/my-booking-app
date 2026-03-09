@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError } = require("../errors");
 const Client = require("../models/Client");
+const Appointment = require("../models/Appointment");
 
 const getAllClients = async (req, res) => {
   const clients = await Client.find({ createdBy: req.user.userId }).sort(
@@ -40,6 +41,8 @@ const updateClient = async (req, res) => {
     params: { id: clientId },
   } = req;
 
+  const newFullName = `${firstname} ${lastname}`;
+
   if (firstname === "" || lastname === "" || email === "" || phone === "") {
     throw new BadRequestError("Please fill in all the fields");
   }
@@ -53,6 +56,11 @@ const updateClient = async (req, res) => {
     { returnDocument: "after", runValidators: true },
   );
 
+  await Appointment.updateMany(
+    { clientId: clientId }, 
+    { $set: { clientName: newFullName } }
+  );
+  
   if (!client) {
     throw new NotFoundError(`No Client with id ${clientId} `);
   }
@@ -64,6 +72,15 @@ const deleteClient = async (req, res) => {
     params: { id: clientId },
   } = req;
 
+  const linkedAppts = await Appointment.findOne({
+    clientId,
+    createdBy: userId,
+  });
+  if (linkedAppts) {
+    throw new BadRequestError(
+      "Cannot delete client. They have existing appointments. Please delete their appointments first.",
+    );
+  }
   const client = await Client.findByIdAndDelete({
     _id: clientId,
     createdBy: userId,
@@ -82,7 +99,7 @@ const searchClients = async (req, res) => {
   if (!searchQuery) {
     return res
       .status(StatusCodes.OK)
-      .json({ message: "Client does not exist", client: []});
+      .json({ message: "Client does not exist", client: [] });
   }
 
   const clients = await Client.find({
@@ -103,5 +120,5 @@ module.exports = {
   createClient,
   updateClient,
   deleteClient,
-  searchClients
+  searchClients,
 };

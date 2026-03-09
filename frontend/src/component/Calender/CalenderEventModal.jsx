@@ -4,6 +4,8 @@ import moment from "moment";
 import axios from "axios";
 import ClientSearch from "./ClientSearch";
 import ClientModal from "../Clients/ClientModal";
+import { FaRegUser } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function CalenderEventModal({
   isOpen,
@@ -21,8 +23,11 @@ export default function CalenderEventModal({
   });
 
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setError("");
     if (event) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData({
@@ -90,7 +95,10 @@ export default function CalenderEventModal({
       setError("");
     } catch (error) {
       console.log(error);
-      setError("Something Went wrong. Please try again");
+      const message =
+        error.response?.data?.message ||
+        "Something Went wrong. Please try again";
+      setError(message);
     }
   };
 
@@ -100,35 +108,49 @@ export default function CalenderEventModal({
 
   const [isClientModalOpen, setIsClientModalOpen] = useState(false);
   const handleNewClientSaved = (newClient) => {
-    console.log("new", newClient)
+    console.log("new", newClient);
     const fullName = `${newClient.firstname} ${newClient.lastname}`;
     setFormData({ ...formData, clientName: fullName, clientId: newClient._id });
-    
+
     setIsClientModalOpen(false);
   };
+
+  if(!isOpen) return null
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContainer}>
+        <div className={styles.headerDiv}>
+          <h2>{event ? "Edit An Appoinment" : "Add An Appoinment"}</h2>
+          <button
+            type="button"
+            className={styles.cancelBtn}
+            onClick={handleCancel}
+          >
+            x
+          </button>
+        </div>
         {error && <p className={styles.errorText}>{error}</p>}
-        <h2>{event ? "Edit An Appoinment" : "Add An Appoinment"}</h2>
         <form onSubmit={handleSubmit}>
           <div className={styles.formContainer}>
             <label>Client</label>
             {event ? (
-              <p>{event.clientName}</p>
+              <div className={styles.clientInfo}>
+                <p>{event.clientName}</p> 
+                <div className={styles.userBtn} onClick={() => navigate(`/clients/${event.clientId}`)}><FaRegUser /></div>
+                </div>
             ) : (
               <>
                 <ClientSearch formData={formData} setFormData={setFormData} />
-                <button
+                <div
                   type="button"
                   onClick={() => setIsClientModalOpen(true)}
+                  className={styles.addClientBtn}
                 >
                   Add new Client
-                </button>
+                </div>
               </>
             )}
-
           </div>
           <div className={styles.formContainer}>
             <label>Start</label>
@@ -169,25 +191,16 @@ export default function CalenderEventModal({
                 Delete
               </button>
             )}
-            <button
-              type="button"
-              className={styles.cancelBtn}
-              onClick={handleCancel}
-            >
-              Cancel
-            </button>
           </div>
         </form>
-
-        
-          {isClientModalOpen && (
-              <ClientModal
-                isOpen={isClientModalOpen}
-                onClose={() => setIsClientModalOpen(false)}
-                onSave={handleNewClientSaved}
-                client={null}
-              />
-            )}
+        {isClientModalOpen && (
+          <ClientModal
+            isOpen={isClientModalOpen}
+            onClose={() => setIsClientModalOpen(false)}
+            onSave={handleNewClientSaved}
+            client={null}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,57 @@
+/* layout */
+.container {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden; 
+  height: 100%;
+}
+
+.mainContainer {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+ 
+}
+
+.sideBar {
+  width: 80px;
+  height: 100%;
+  /* background-color: #f0efdc; */
+  /* border-right: 1px solid #ddd; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.navLink {
+  padding: 15px 25px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: #555;
+  transition: all 0.2s;
+}
+
+.navLink:hover {
+  background-color: #f0ede4;
+}
+
+/* Style for the active page */
+.activeLink {
+  color: rgb(122, 64, 64);
+  background-color: #fffaf0;
+  font-weight: bold;
+  padding: 15px 25px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+}

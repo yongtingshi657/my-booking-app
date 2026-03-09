@@ -12,11 +12,11 @@ export default function ClientsList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editClient, setEditClient] = useState(null);
 
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("");
 
   const token = localStorage.getItem("token");
-  
-  //   fetch clients data
+
+  // fetch clients data
   useEffect(() => {
     if (!token) {
       return;
@@ -29,7 +29,9 @@ export default function ClientsList() {
         console.log("data", data);
         setClients(data.clients);
       } catch (error) {
-        setError("Failed to fetch Clients");
+        const message =
+          error.response?.data?.message || "Failed to Fetch Client";
+        setError(message);
       }
     };
 
@@ -44,18 +46,25 @@ export default function ClientsList() {
 
   // handle Save
   const handleSaveClient = (newClient) => {
-    if(editClient){
-      setClients(clients.map((client)=> client._id === newClient._id ? newClient : client ))
+    if (editClient) {
+      setClients(
+        clients.map((client) =>
+          client._id === newClient._id ? newClient : client,
+        ),
+      );
     } else {
-      setClients([...clients, newClient])
+      setClients([...clients, newClient]);
     }
 
-    setEditClient(null)
-    setIsModalOpen(false)
-  }
+    setEditClient(null);
+    setIsModalOpen(false);
+  };
 
   // handle Delete
   const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this client?")) {
+      return;
+    }
     try {
       if (!token) {
         setError("No authentication token found. Please Log in");
@@ -65,37 +74,43 @@ export default function ClientsList() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setClients(clients.filter((client) => client._id !== id));
+      setError("");
     } catch (error) {
-      setError("Failed to Delete Client");
+      const message =
+        error.response?.data?.message || "Failed to Delete Client";
+      setError(message);
     }
   };
 
   // search
-  const filteredClients = clients.filter(client => {
-    const searchLowerCase = search.toLocaleLowerCase()
-      return (
-        client.firstname.toLowerCase().includes(searchLowerCase) ||
-         client.lastname.toLowerCase().includes(searchLowerCase) ||
-         client.email.toLowerCase().includes(searchLowerCase) ||
-         client.phone.includes(searchLowerCase)
-      )
-  })
+  const filteredClients = clients.filter((client) => {
+    const searchLowerCase = search.toLocaleLowerCase();
+    return (
+      client.firstname?.toLowerCase().includes(searchLowerCase) ||
+      client.lastname?.toLowerCase().includes(searchLowerCase) ||
+      client.email?.toLowerCase().includes(searchLowerCase) ||
+      client.phone?.includes(searchLowerCase)
+    );
+  });
 
   return (
     <>
       <div className={styles.clientContainer}>
         <div className={styles.headerSection}>
           <h2>My Clients List</h2>
-          <button className={styles.addBtn} onClick={()=>setIsModalOpen(true)}>
+          <button
+            className={styles.addBtn}
+            onClick={() => setIsModalOpen(true)}
+          >
             <span>+ Add Client</span>
           </button>
         </div>
-      <ClientSearch search={search} setSearch={setSearch} />
+        <ClientSearch search={search} setSearch={setSearch} />
         <ClientModal
           isOpen={isModalOpen}
           onClose={() => {
             setIsModalOpen(false);
-            setEditClient(null)
+            setEditClient(null);
           }}
           key={editClient?._id || "new"}
           client={editClient}
