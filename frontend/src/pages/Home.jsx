@@ -38,7 +38,10 @@ export default function Home() {
         setTodayAppts(sortedAppts);
       } catch (error) {
         console.log(error);
-        setError("Failed to fetch Appointments");
+        const message =
+        error.response?.data?.message ||
+        "Failed to fetch Appointments. Please try again";
+      setError(message);
       }
     };
 

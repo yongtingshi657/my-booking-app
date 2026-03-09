@@ -1,21 +1,22 @@
 * {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body, html {
-    height: 100%;
-    width: 100%;
-    min-height: 100vh;      
-    background-color: #faf8f1;
-    color: #2d334a;
+body,
+html {
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #faf8f1;
+  color: #2d334a;
 }
 
 button {
   background-color: #658961;
-  color: white;  
+  color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -36,6 +37,19 @@ button:hover {
   margin-bottom: 1.5rem;
   text-align: center;
   border: 1px solid #ffbaba;
+}
+
+.notFoundDiv {
+  text-align: center;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 40px auto;
 }
 
 /* button:hover {

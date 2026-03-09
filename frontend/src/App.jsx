@@ -14,13 +14,14 @@ import ClientsList from "./pages/ClientsList/ClientsList";
 import Appointments from "./pages/Appointments";
 import Layout from "./component/Layout/Layout";
 import ClientDetail from "./component/Clients/ClientDetail";
+import NotFound from "./pages/NotFound";
 function App() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setError('')
+    setError("");
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
       if (token) {
@@ -29,8 +30,10 @@ function App() {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUser(res.data.user);
-        } catch (err) {
-          setError("Failed to fetch user Data");
+        } catch (error) {
+          const message =
+            error.response?.data?.message || "Failed to fetch user Data";
+          setError(message);
           localStorage.removeItem("token");
         }
       }
@@ -44,8 +47,8 @@ function App() {
     return <div>Loading...</div>;
   }
 
-  if(error){
-    return <p>{error}</p>
+  if (error) {
+    return <p className="errorText">{error}</p>;
   }
 
   return (
@@ -76,6 +79,7 @@ function App() {
               <Route path="/bookings" element={<Appointments />} />
 
               {/* not found */}
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </div>

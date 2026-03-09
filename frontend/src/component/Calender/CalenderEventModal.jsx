@@ -29,7 +29,6 @@ export default function CalenderEventModal({
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setError("");
     if (event) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData({
         clientName: event.client,
         start: moment(event.start).format("YYYY-MM-DDTHH:mm"),
@@ -133,6 +132,7 @@ export default function CalenderEventModal({
         {error && <p className={styles.errorText}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className={styles.formContainer}>
+            {/* <p>Type a name and select from the list, or create a new profile.</p> */}
             <label>Client</label>
             {event ? (
               <div className={styles.clientInfo}>

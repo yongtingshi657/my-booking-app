@@ -16,6 +16,10 @@ function Appointments() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setError('')
+
+
     if (!token) {
       return;
     }
@@ -39,7 +43,9 @@ function Appointments() {
         setEvents(formatedAppts);
       } catch (error) {
         console.log(error);
-        setError("Failed to fetch Appointments");
+         const message =
+            error.response?.data?.message || "Failed to fetch Appointments";
+          setError(message);
       }
     };
 

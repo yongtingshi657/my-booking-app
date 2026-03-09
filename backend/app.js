@@ -1,22 +1,35 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
+const helmet = require('helmet')
+const cors = require('cors')
+const { xss } = require('express-xss-sanitizer');
+const rateLimiter = require('express-rate-limit')
 // import
 const connectDB = require("./db/connect");
 const authRouter = require('./routes/auth'); 
 const clientRouter = require('./routes/client'); 
-const apptRouter = require('./routes/appointment'); 
+const apptsRouter = require('./routes/appointment'); 
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const authenticateUser = require('./middleware/authentication')
 
-// middleware 
+// middleware
+app.set('trust proxy', 1)
+app.use(rateLimiter({
+  windowMs:15 * 60 * 1000,
+  max:100,
+}))
 app.use(express.json());
+app.use(helmet())
+app.use(cors())
+app.use(xss());
+
 
 // routes
 app.use('/api/auth', authRouter )
 app.use('/api/clients', authenticateUser, clientRouter)
-app.use('/api/appointments', authenticateUser, apptRouter)
+app.use('/api/appointments', authenticateUser, apptsRouter)
 
 // error handler
 app.use(errorHandlerMiddleware)

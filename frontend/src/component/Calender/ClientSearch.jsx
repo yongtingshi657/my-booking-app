@@ -7,6 +7,8 @@ export default function ClientSearch({ formData, setFormData }) {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 
+  const [error, setError] = useState("");
+
   // search functionality
   const handleSearchClient = async (e) => {
     const token = localStorage.getItem("token");
@@ -29,6 +31,10 @@ export default function ClientSearch({ formData, setFormData }) {
       setSearchResults(data.clients || []);
     } catch (error) {
       console.log(error);
+      const message =
+        error.response?.data?.message ||
+        "Something Went wrong. Please try again";
+      setError(message);
     }
 
     setIsSearching(false);
@@ -75,6 +81,7 @@ export default function ClientSearch({ formData, setFormData }) {
 
   return (
     <>
+     {error && <p className={styles.errorText}>{error}</p>}
       <div className={styles.searchBox}>
         <input
           type="text"
@@ -103,9 +110,7 @@ export default function ClientSearch({ formData, setFormData }) {
       </div>
 
       {searchTerm.length >= 2 && !isSearching && searchResults.length === 0 && (
-        <div className={styles.noResults}>
-          No client found
-        </div>
+        <div className={styles.noResults}>No client found. Please Add new Client</div>
       )}
     </>
   );
