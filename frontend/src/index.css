@@ -51,6 +51,18 @@ button:hover {
   max-width: 600px;
   margin: 40px auto;
 }
+.loadingDiv {
+  text-align: center;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 40px auto;
+}
 
 /* button:hover {
     background-color: #0d5c0d;

@@ -15,6 +15,7 @@ import Layout from "./component/Layout/Layout";
 import ClientDetail from "./component/Clients/ClientDetail";
 import NotFound from "./pages/NotFound";
 import customFetch from "./utils/axios";
+import Loading from "./component/Loading";
 function App() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
@@ -44,7 +45,7 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {
