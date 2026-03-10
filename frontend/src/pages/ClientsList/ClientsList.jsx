@@ -18,6 +18,8 @@ export default function ClientsList() {
 
   // fetch clients data
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setError('')
     if (!token) {
       return;
     }

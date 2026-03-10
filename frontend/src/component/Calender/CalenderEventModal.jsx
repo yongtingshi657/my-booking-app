@@ -128,7 +128,7 @@ export default function CalenderEventModal({
     <div className={styles.modalOverlay}>
       <div className={styles.modalContainer}>
         <div className={styles.headerDiv}>
-          <h2>{event ? "Edit An Appoinment" : "Add An Appoinment"}</h2>
+          <h2>{event ? "Edit An Appointment" : "Add An Appointment"}</h2>
           <button
             type="button"
             className={styles.cancelBtn}
@@ -155,13 +155,13 @@ export default function CalenderEventModal({
             ) : (
               <>
                 <ClientSearch formData={formData} setFormData={setFormData} />
-                <div
+                <p
                   type="button"
                   onClick={() => setIsClientModalOpen(true)}
                   className={styles.addClientBtn}
                 >
                   Add new Client
-                </div>
+                </p>
               </>
             )}
           </div>
